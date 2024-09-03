@@ -18,6 +18,7 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import seaborn as sns
 
 data_frames = pd.read_csv("twitter_comments.csv")
@@ -98,3 +99,13 @@ predicted = model.predict(x_test)
 
 print(accuracy_score(y_test, predicted))
 print(confusion_matrix(y_test, predicted))
+
+# Showing confusion matrix
+
+# Create confusion matrix
+cm = confusion_matrix(y_test, predicted)
+
+# Display the confusion matrix using ConfusionMatrixDisplay
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp.plot()
+plt.show()
