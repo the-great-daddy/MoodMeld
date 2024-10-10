@@ -11,7 +11,7 @@ model = AutoModelForSequenceClassification.from_pretrained(MODEL)
 
 def get_sentiment(text):
      # Tokenize the input text
-    encoded_text = tokenizer(example, return_tensors='pt')
+    encoded_text = tokenizer(text, return_tensors='pt')
     # Get model outputs
     output = model(**encoded_text)
     # Get scores (logits)
