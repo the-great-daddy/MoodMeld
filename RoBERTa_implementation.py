@@ -9,6 +9,33 @@ MODEL = f"cardiffnlp/twitter-roberta-base-sentiment"
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL)
 
+# Function to get sentiment label using polarity_scores_roberta
+def get_sentiment(text):
+     # Tokenize the input text
+    encoded_text = tokenizer(example, return_tensors='pt')
+    # Get model outputs
+    output = model(**encoded_text)
+    # Get scores (logits)
+    scores = output[0][0].detach().numpy()
+    # Apply softmax to get probabilities
+    scores = softmax(scores)
+    # Define the labels corresponding to each class
+    labels = ['negative', 'neutral', 'positive']
+    # Get the index of the class with the highest score (probability)
+    predicted_class = np.argmax(scores)
+    # Get the confidence of the predicted class
+    confidence = scores[predicted_class]
+    
+    return labels[predicted_class], confidence
+
+# Test the function with an example sentence
+text = "I love to eat noodeles and play football!"
+sentiment, confidence = get_sentiment(text)
+
+print(f"Sentiment: {sentiment}, Confidence: {confidence:.4f}")
+
+
+
 # read the csv file
 data_frames = pd.read_csv('amazon_reviews.csv')
 
