@@ -9,7 +9,6 @@ MODEL = f"cardiffnlp/twitter-roberta-base-sentiment"
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL)
 
-# Function to get sentiment label using polarity_scores_roberta
 def get_sentiment(text):
      # Tokenize the input text
     encoded_text = tokenizer(example, return_tensors='pt')
